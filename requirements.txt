@@ -1,0 +1,5 @@
+# Dependencias del proyecto Python
+Flask
+requests
+python-dotenv
+BASE_URL = "https://api.vapi.ai" # <-- LÍNEA TEMPORAL PARA DEPURAR

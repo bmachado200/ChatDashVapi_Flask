@@ -1,0 +1,208 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    background-color: #f8f9fa; /* Un gris claro para el fondo */
+    /* padding-top: 56px; */ /* <-- ELIMINAMOS ESTO O LO AJUSTAMOS SI ES NECESARIO */
+}
+
+/* Navbar custom styling */
+.navbar-brand i {
+    margin-right: 8px;
+    color: #00c853; /* Un verde Vapi-like */
+}
+
+.nav-item .nav-link i {
+    margin-right: 5px;
+}
+
+/* Main content area */
+main.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    /* --- INICIO DE LA MODIFICACIÓN --- */
+    /* Añadimos un margen superior para compensar la altura de la navbar fija.
+       La altura estándar de una navbar de Bootstrap es ~56px. 
+       Puedes ajustarlo si tu navbar es más alta. 
+       Un valor como 70px o 75px suele dar buen espacio. */
+    margin-top: 75px; 
+    /* --- FIN DE LA MODIFICACIÓN --- */
+    margin-bottom: 20px; /* Espacio antes del footer */
+}
+
+/* Table styling */
+.table th {
+    font-weight: 600;
+}
+
+.table td code {
+    font-size: 0.85em;
+    background-color: #e9ecef;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
+
+.table .badge {
+    font-size: 0.8em;
+    padding: 0.4em 0.6em;
+}
+
+/* Footer styling */
+.footer {
+    background-color: #e9ecef; /* Un gris un poco más oscuro que el body */
+    padding: 1rem 0;
+    font-size: 0.9em;
+    position: relative; 
+    bottom: 0;
+    width: 100%;
+}
+
+/* Card styling */
+.card {
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0.1rem 0.2rem rgba(0,0,0,.05);
+}
+
+.card-header {
+    font-weight: 500;
+}
+
+.card-header i {
+    margin-right: 8px;
+}
+
+/* DL (Definition List) styling for details pages */
+dl.row dt {
+    font-weight: 500;
+    color: #495057;
+}
+
+dl.row dd {
+    margin-bottom: 0.75rem;
+}
+
+dd pre {
+    white-space: pre-wrap;      
+    white-space: -moz-pre-wrap; 
+    white-space: -pre-wrap;     
+    white-space: -o-pre-wrap;   
+    word-wrap: break-word;      
+    font-size: 0.875em;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    h1.h2 {
+        font-size: 1.5rem;
+    }
+    /* --- INICIO DE LA MODIFICACIÓN (Opcional, pero recomendado) --- */
+    main.container {
+        margin-top: 65px; /* Un poco menos margen en móviles si la navbar es más compacta */
+    }
+    /* --- FIN DE LA MODIFICACIÓN --- */
+    .btn-toolbar .btn-group {
+        margin-bottom: 0.5rem;
+    }
+    .btn-toolbar small.text-muted {
+        display: block;
+        width: 100%;
+        text-align: left;
+        margin-top: 5px;
+    }
+}
+
+/* Custom badge colors */
+.badge-success { 
+    color: #fff;
+    background-color: #28a745;
+}
+.badge-secondary { 
+    color: #fff;
+    background-color: #6c757d;
+}
+.badge-danger { 
+    color: #fff;
+    background-color: #dc3545;
+}
+.badge-warning { 
+    color: #212529;
+    background-color: #ffc107;
+}
+.badge-info { 
+    color: #fff;
+    background-color: #17a2b8;
+}
+.badge-primary { 
+    color: #fff;
+    background-color: #007bff;
+}
+.badge-light {
+    color: #212529;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+/* Ajustes para modales */
+.modal-lg {
+    max-width: 80%;
+}
+
+.modal-body pre {
+    max-height: 60vh; 
+    overflow-y: auto;
+}
+
+/* Para que el footer se quede abajo si el contenido es corto */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main.container {
+    flex: 1 0 auto; 
+}
+
+.footer {
+    flex-shrink: 0; 
+}
+
+/* Estilos para el contenedor del chat en la ventana modal */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre burbujas de chat */
+    padding: 10px;
+}
+
+/* Estilo base para todas las burbujas de chat */
+.chat-bubble {
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 75%;
+    line-height: 1.4;
+}
+
+/* Burbuja para el AI (asistente), alineada a la izquierda */
+.chat-bubble-ai {
+    background-color: #e9ecef; /* Gris claro */
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px; /* Estilo de burbuja */
+}
+
+/* Burbuja para el Usuario, alineada a la derecha */
+.chat-bubble-user {
+    background-color: #007bff; /* Azul primario de Bootstrap */
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px; /* Estilo de burbuja */
+}
