@@ -334,6 +334,7 @@ def assistant_details(assistant_id):
     return render_template('assistant_detail.html', assistant=assistant_data, last_updated=datetime.datetime.now())
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1",
-            port=int(os.getenv("FLASK_RUN_PORT", 7000)),
-            debug=True)
+    # For deployment, host must be '0.0.0.0' and the port is set by the 'PORT' env var.
+    # Debug mode should be turned off for security.
+    port = int(os.getenv("PORT", 7000))
+    app.run(host="0.0.0.0", port=port, debug=False)
