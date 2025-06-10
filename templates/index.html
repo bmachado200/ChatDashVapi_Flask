@@ -1,15 +1,22 @@
 {% extends "layout.html" %}
-{% block title %}Dashboard de Agente - Vapi ChatDash{% endblock %}
+{% block title %}{{ _('Dashboard de Agente - Vapi ChatDash') }}{% endblock %}
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2"><i class="fas fa-user-cog"></i> Dashboard de Agente</h1>
-    <small class="text-muted align-self-center">Última Actualización: {{ last_updated.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+    <h1 class="h2"><i class="fas fa-user-cog"></i> {{ _('Dashboard de Agente') }}</h1>
+    <small class="text-muted align-self-center">{{ _('Última Actualización:') }} {{ last_updated.strftime('%Y-%m-%d %H:%M:%S') }}</small>
 </div>
 {% if error_message %}<div class="alert alert-danger">{{ error_message }}</div>{% endif %}
 <div class="table-responsive">
     <table class="table table-striped table-hover table-sm">
         <thead class="thead-dark">
-            <tr><th>ID del Asistente</th><th>Nombre</th><th>Proveedor Modelo</th><th>Nombre Modelo</th><th>Estado</th><th>Acciones</th></tr>
+            <tr>
+                <th>{{ _('ID del Asistente') }}</th>
+                <th>{{ _('Nombre') }}</th>
+                <th>{{ _('Proveedor Modelo') }}</th>
+                <th>{{ _('Nombre Modelo') }}</th>
+                <th>{{ _('Estado') }}</th>
+                <th>{{ _('Acciones') }}</th>
+            </tr>
         </thead>
         <tbody>
             {% if agents %}
@@ -21,14 +28,14 @@
                     <td>{{ agent.model_name }}</td>
                     <td><span class="badge badge-pill {{ get_status_badge_class(agent.status) }}">{{ agent.status | upper }}</span></td>
                     <td>
-    <a href="{{ url_for('calls_dashboard') }}" class="btn btn-primary btn-sm" title="Ver Llamadas del Agente">
-        <i class="fas fa-headset"></i> Ver Llamadas
-    </a>
-</td>
+                        <a href="{{ url_for('calls_dashboard') }}" class="btn btn-primary btn-sm" title="{{ _('Ver Llamadas del Agente') }}">
+                            <i class="fas fa-headset"></i> {{ _('Ver Llamadas del Agente') }}
+                        </a>
+                    </td>
                 </tr>
                 {% endfor %}
             {% else %}
-                <tr><td colspan="6" class="text-center p-4">No se pudo cargar la información del agente.</td></tr>
+                <tr><td colspan="6" class="text-center p-4">{{ _('No se pudo cargar la información del agente.') }}</td></tr>
             {% endif %}
         </tbody>
     </table>

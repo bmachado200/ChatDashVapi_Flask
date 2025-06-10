@@ -1,92 +1,101 @@
 {% extends "layout.html" %}
-{% block title %}Dashboard de Llamadas: {{ agent_name }}{% endblock %}
+{% block title %}{{ _('Dashboard de Llamadas:') }} {{ agent_name }}{% endblock %}
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <div>
-        <h1 class="h2"><i class="fas fa-chart-line"></i> Dashboard de Llamadas</h1>
+        <h1 class="h2"><i class="fas fa-chart-line"></i> {{ _('Dashboard de Llamadas') }}</h1>
         <h3 class="h5 text-primary">{{ agent_name }}</h3>
     </div>
 </div>
-{% if error_message %}<div class="alert alert-danger">{{ error_message }}</div>{% endif %}
-<div class="card bg-light mb-4">
-    <div class="card-body">
-        <div class="row mb-4 align-items-center">
-            <div class="col-md-6 mb-3 mb-md-0">
-                <span class="font-weight-bold mr-2">Períodos Rápidos:</span>
-                <div class="btn-group" role="group">
-                    <a href="{{ url_for('calls_dashboard', period='day') }}" class="btn btn-sm btn-outline-secondary {% if selected_period == 'Day' %}active{% endif %}">Hoy</a>
-                    <a href="{{ url_for('calls_dashboard', period='week') }}" class="btn btn-sm btn-outline-secondary {% if selected_period == 'Week' %}active{% endif %}">Semana</a>
-                    <a href="{{ url_for('calls_dashboard', period='month') }}" class="btn btn-sm btn-outline-secondary {% if selected_period == 'Month' %}active{% endif %}">Mes</a>
+
+<div id="skeleton-loader-wrapper">
+    <div class="card bg-light mb-4">
+        <div class="card-body">
+            <div class="row mb-4 align-items-center">
+                <div class="col-md-6 mb-3 mb-md-0 d-flex align-items-center">
+                    <div class="skeleton-text-wrapper" style="width: 120px; height: 24px; margin-right: 1rem;"><div class="skeleton"></div></div>
+                    <div class="skeleton-button-wrapper" style="width: 50px; margin-right: 0.5rem;"><div class="skeleton"></div></div>
+                    <div class="skeleton-button-wrapper" style="width: 60px; margin-right: 0.5rem;"><div class="skeleton"></div></div>
+                    <div class="skeleton-button-wrapper" style="width: 50px;"><div class="skeleton"></div></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-inline float-md-right">
+                        <div class="skeleton-input-wrapper mr-2"><div class="skeleton"></div></div>
+                        <div class="skeleton-input-wrapper mr-2"><div class="skeleton"></div></div>
+                        <div class="skeleton-button-wrapper"><div class="skeleton"></div></div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <form method="GET" action="{{ url_for('calls_dashboard') }}" class="form-inline float-md-right">
-                    <input type="date" name="start_date" class="form-control form-control-sm mr-2" value="{{ start_date or '' }}" title="Fecha de inicio">
-                    <input type="date" name="end_date" class="form-control form-control-sm mr-2" value="{{ end_date or '' }}" title="Fecha de fin">
-                    <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-filter"></i> Filtrar</button>
-                </form>
+            <hr>
+            <div class="row pt-3">
+                <div class="col-md-4 mb-3"><div class="skeleton-card"><div class="skeleton"></div></div></div>
+                <div class="col-md-4 mb-3"><div class="skeleton-card"><div class="skeleton"></div></div></div>
+                <div class="col-md-4 mb-3"><div class="skeleton-card"><div class="skeleton"></div></div></div>
             </div>
         </div>
-        <hr>
-        <div class="row pt-3">
-            <div class="col-md-4 mb-3"><div class="card text-white bg-primary h-100"><div class="card-body"><h5 class="card-title"><i class="fas fa-phone"></i> Total de Llamadas</h5><p class="card-text display-4">{{ total_calls }}</p></div></div></div>
-            
-            <div class="col-md-4 mb-3">
-                <div class="card text-white bg-success h-100">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-clock"></i> Minutos Totales (MM:SS)</h5>
-                        <p class="card-text display-4">{{ total_minutes_str }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <div class="card text-white bg-info h-100">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-stopwatch"></i> Promedio (MM:SS)</h5>
-                        <p class="card-text display-4">{{ average_minutes_str }}</p>
-                    </div>
-                </div>
-            </div>
-            </div>
+    </div>
+    <div class="h4 mt-5 skeleton-text-wrapper" style="width: 40%;"><div class="skeleton"></div></div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm">
+            <thead class="thead-dark">
+                <tr><th><div class="skeleton-text-wrapper" style="height: 1rem;"><div class="skeleton"></div></div></th><th><div class="skeleton-text-wrapper" style="height: 1rem;"><div class="skeleton"></div></div></th><th><div class="skeleton-text-wrapper" style="height: 1rem;"><div class="skeleton"></div></div></th><th><div class="skeleton-text-wrapper" style="height: 1rem;"><div class="skeleton"></div></div></th><th><div class="skeleton-text-wrapper" style="height: 1rem;"><div class="skeleton"></div></div></th><th><div class="skeleton-text-wrapper" style="height: 1rem;"><div class="skeleton"></div></div></th></tr>
+            </thead>
+            <tbody>
+                {% for i in range(5) %}
+                <tr><td><div class="skeleton-text-wrapper"><div class="skeleton"></div></div></td><td><div class="skeleton-text-wrapper"><div class="skeleton"></div></div></td><td><div class="skeleton-text-wrapper"><div class="skeleton"></div></div></td><td><div class="skeleton-text-wrapper"><div class="skeleton"></div></div></td><td><div class="skeleton-text-wrapper"><div class="skeleton"></div></div></td><td><div class="skeleton-button-wrapper" style="width: 50px;"><div class="skeleton"></div></div></td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
-<h3 class="h4 mt-5">Detalle de Llamadas (Período: {{ selected_period }})</h3>
-<div class="table-responsive">
-    <table class="table table-striped table-hover table-sm">
-        <thead class="thead-dark"><tr><th>ID de Llamada</th><th>Número Cliente</th><th>Estado</th><th>Iniciada en</th><th>Duración (MM:SS)</th><th>Transcripción</th></tr></thead>
-        <tbody>
-            {% if calls %}
-                {% for call in calls %}
-                <tr>
-                    <td><code>{{ call.id | truncate(15) }}...</code></td>
-                    <td>{{ call.customer_number }}</td>
-                    <td><span class="badge badge-pill {{ get_status_badge_class(call.status) }}">{{ call.status | upper }}</span></td>
-                    <td>{{ call.started_at | replace("T", " ") | replace("Z", "") if call.started_at else 'N/A' }}</td>
-                    <td><strong>{{ call.duration }}</strong></td>
-                    <td><button class="btn btn-outline-info btn-sm view-transcript-btn" data-toggle="modal" data-target="#transcriptModal" data-call-id="{{ call.id }}"><i class="fas fa-file-alt"></i> Ver</button></td>
-                </tr>
-                {% endfor %}
-            {% else %}
-                <tr><td colspan="6" class="text-center p-4">No hay llamadas para mostrar en este período.</td></tr>
-            {% endif %}
-        </tbody>
-    </table>
+<div id="main-content-wrapper" style="display: none;">
+    <div id="error-message-container"></div>
+    <div class="card bg-light mb-4">
+        <div class="card-body">
+            <div class="row mb-4 align-items-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <span class="font-weight-bold mr-2">{{ _('Períodos Rápidos:') }}</span>
+                    <div class="btn-group" role="group" id="quick-periods-group">
+                        <a href="{{ url_for('calls_dashboard', period='day') }}" class="btn btn-sm btn-outline-secondary">{{ _('Hoy') }}</a>
+                        <a href="{{ url_for('calls_dashboard', period='week') }}" class="btn btn-sm btn-outline-secondary">{{ _('Semana') }}</a>
+                        <a href="{{ url_for('calls_dashboard', period='month') }}" class="btn btn-sm btn-outline-secondary">{{ _('Mes') }}</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <form method="GET" action="{{ url_for('calls_dashboard') }}" class="form-inline float-md-right">
+                        <input type="date" name="start_date" class="form-control form-control-sm mr-2" value="{{ start_date or '' }}" title="{{ _('Fecha de inicio') }}">
+                        <input type="date" name="end_date" class="form-control form-control-sm mr-2" value="{{ end_date or '' }}" title="{{ _('Fecha de fin') }}">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-filter"></i> {{ _('Filtrar') }}</button>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div class="row pt-3">
+                <div class="col-md-4 mb-3"><div class="card text-white bg-primary h-100"><div class="card-body"><h5 class="card-title"><i class="fas fa-phone"></i> {{ _('Total de Llamadas') }}</h5><p class="card-text display-4" id="total-calls-value"></p></div></div></div>
+                <div class="col-md-4 mb-3"><div class="card text-white bg-success h-100"><div class="card-body"><h5 class="card-title"><i class="fas fa-clock"></i> {{ _('Minutos Totales (MM:SS)') }}</h5><p class="card-text display-4" id="total-minutes-value"></p></div></div></div>
+                <div class="col-md-4 mb-3"><div class="card text-white bg-info h-100"><div class="card-body"><h5 class="card-title"><i class="fas fa-stopwatch"></i> {{ _('Promedio (MM:SS)') }}</h5><p class="card-text display-4" id="average-minutes-value"></p></div></div></div>
+            </div>
+        </div>
+    </div>
+    <h3 class="h4 mt-5" id="call-details-heading"></h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm">
+            <thead class="thead-dark"><tr><th>{{ _('ID de Llamada') }}</th><th>{{ _('Número Cliente') }}</th><th>{{ _('Estado') }}</th><th>{{ _('Iniciada en') }}</th><th>{{ _('Duración (MM:SS)') }}</th><th>{{ _('Transcripción') }}</th></tr></thead>
+            <tbody id="calls-table-body">
+                </tbody>
+        </table>
+    </div>
 </div>
 <div class="modal fade" id="transcriptModal" tabindex="-1" aria-labelledby="transcriptModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="transcriptModalLabel">Transcripción de la Llamada</h5>
-        <div class="btn-group btn-group-sm ml-auto" role="group">
-            <button type="button" id="toggle-chat-view" class="btn btn-secondary active">Vista Chat</button>
-            <button type="button" id="toggle-plain-text-view" class="btn btn-secondary">Texto Plano</button>
-        </div>
+        <h5 class="modal-title" id="transcriptModalLabel">{{ _('Transcripción de la Llamada') }}</h5>
+        <div class="btn-group btn-group-sm ml-auto" role="group"><button type="button" id="toggle-chat-view" class="btn btn-secondary active">{{ _('Vista Chat') }}</button><button type="button" id="toggle-plain-text-view" class="btn btn-secondary">{{ _('Texto Plano') }}</button></div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
-      <div class="modal-body">
-        <div id="modal-transcript-content" class="chat-container">Cargando...</div>
-      </div>
-      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button></div>
+      <div class="modal-body"><div id="modal-transcript-content" class="chat-container">{{ _('Cargando...') }}</div></div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">{{ _('Cerrar') }}</button></div>
     </div>
   </div>
 </div>
@@ -94,75 +103,135 @@
 
 {% block scripts %}
 {{ super() }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const apiUrl = `/api/calls-data?${urlParams.toString()}`;
+
+        // Utility to safely escape HTML to prevent XSS
+        const escapeHTML = str => str.replace(/[&<>'"]/g, 
+            tag => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;',
+                "'": '&#39;', '"': '&quot;'
+            }[tag] || tag));
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw new Error(err.error || 'Network response was not ok') });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Populate KPI Cards
+                document.getElementById('total-calls-value').textContent = data.total_calls;
+                document.getElementById('total-minutes-value').textContent = data.total_minutes_str;
+                document.getElementById('average-minutes-value').textContent = data.average_minutes_str;
+
+                // Set heading
+                document.getElementById('call-details-heading').textContent = `{{ _('Detalle de Llamadas (Período:') }} ${data.selected_period})`;
+
+                // Populate Table
+                const tableBody = document.getElementById('calls-table-body');
+                tableBody.innerHTML = ''; // Clear existing skeleton rows
+
+                if (data.calls && data.calls.length > 0) {
+                    data.calls.forEach(call => {
+                        const statusBadgeClass = call.status.toLowerCase().includes("error") ? "badge-danger" :
+                                                 (call.status.toLowerCase().includes("ended") || call.status.toLowerCase().includes("completed")) ? "badge-secondary" :
+                                                 "badge-success";
+                        
+                        const startedAt = call.started_at ? escapeHTML(call.started_at.replace("T", " ").replace("Z", "")) : 'N/A';
+                        
+                        const rowHTML = `
+                            <tr>
+                                <td><code>${escapeHTML(call.id.substring(0, 15))}...</code></td>
+                                <td>${escapeHTML(call.customer_number)}</td>
+                                <td><span class="badge badge-pill ${statusBadgeClass}">${escapeHTML(call.status).toUpperCase()}</span></td>
+                                <td>${startedAt}</td>
+                                <td><strong>${escapeHTML(call.duration)}</strong></td>
+                                <td>
+                                    <button class="btn btn-outline-info btn-sm view-transcript-btn" 
+                                            data-toggle="modal" 
+                                            data-target="#transcriptModal" 
+                                            data-call-id="${escapeHTML(call.id)}">
+                                        <i class="fas fa-file-alt"></i> {{ _('Ver') }}
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        tableBody.insertAdjacentHTML('beforeend', rowHTML);
+                    });
+                } else {
+                    const noCallsHTML = `<tr><td colspan="6" class="text-center p-4">{{ _('No hay llamadas para mostrar en este período.') }}</td></tr>`;
+                    tableBody.innerHTML = noCallsHTML;
+                }
+
+                // Show the main content and hide the skeleton
+                document.getElementById('skeleton-loader-wrapper').style.display = 'none';
+                document.getElementById('main-content-wrapper').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error fetching call data:', error);
+                const errorContainer = document.getElementById('error-message-container');
+                errorContainer.innerHTML = `<div class="alert alert-danger">${escapeHTML(error.message)}</div>`;
+                // Still hide the skeleton and show the main block to display the error
+                document.getElementById('skeleton-loader-wrapper').style.display = 'none';
+                document.getElementById('main-content-wrapper').style.display = 'block';
+            });
+    });
+</script>
+
 <script>
 $(document).ready(function() {
-    let rawTranscript = ''; // Variable para guardar la transcripción original
+    let rawTranscript = ''; 
     const transcriptContainer = $('#modal-transcript-content');
     const chatViewBtn = $('#toggle-chat-view');
     const plainTextViewBtn = $('#toggle-plain-text-view');
 
-    // --- Función para renderizar la vista de CHAT ---
     function renderChatView() {
         transcriptContainer.empty().addClass('chat-container').removeClass('plain-text-container');
-        chatViewBtn.addClass('active');
-        plainTextViewBtn.removeClass('active');
-
+        chatViewBtn.addClass('active'); plainTextViewBtn.removeClass('active');
         if (!rawTranscript) return;
         const turns = rawTranscript.split(/(?=User:|AI:)/g);
         turns.forEach(turn => {
             const trimmedTurn = turn.trim();
             if (trimmedTurn === '') return;
             const bubble = $('<div class="chat-bubble"></div>');
-            if (trimmedTurn.toUpperCase().startsWith('AI:')) {
-                bubble.addClass('chat-bubble-ai').text(trimmedTurn.substring(3).trim());
-            } else if (trimmedTurn.toUpperCase().startsWith('USER:')) {
-                bubble.addClass('chat-bubble-user').text(trimmedTurn.substring(5).trim());
-            } else {
-                bubble.addClass('chat-bubble-ai').text(trimmedTurn);
-            }
+            if (trimmedTurn.toUpperCase().startsWith('AI:')) { bubble.addClass('chat-bubble-ai').text(trimmedTurn.substring(3).trim()); }
+            else if (trimmedTurn.toUpperCase().startsWith('USER:')) { bubble.addClass('chat-bubble-user').text(trimmedTurn.substring(5).trim()); }
+            else { bubble.addClass('chat-bubble-ai').text(trimmedTurn); }
             transcriptContainer.append(bubble);
         });
     }
 
-    // --- Función para renderizar la vista de TEXTO PLANO ---
     function renderPlainTextView() {
         transcriptContainer.empty().removeClass('chat-container').addClass('plain-text-container');
-        plainTextViewBtn.addClass('active');
-        chatViewBtn.removeClass('active');
-        
+        plainTextViewBtn.addClass('active'); chatViewBtn.removeClass('active');
         const preformattedText = $('<pre style="white-space: pre-wrap; word-wrap: break-word;"></pre>');
-        preformattedText.text(rawTranscript || 'La transcripción está vacía.');
+        preformattedText.text(rawTranscript || '{{ _("La transcripción está vacía.") }}');
         transcriptContainer.append(preformattedText);
     }
 
-    // --- Eventos de los botones del selector ---
     chatViewBtn.on('click', renderChatView);
     plainTextViewBtn.on('click', renderPlainTextView);
 
-    // --- Evento principal cuando la modal se abre ---
     $('#transcriptModal').on('show.bs.modal', function (event) {
-        rawTranscript = ''; // Resetear la transcripción
-        transcriptContainer.html('<p>Cargando...</p>');
-        renderChatView(); // Asegurarse de que la vista de chat esté activa por defecto
-
+        rawTranscript = ''; 
+        transcriptContainer.html('<p>{{ _("Cargando...") }}</p>');
+        renderChatView(); 
         var button = $(event.relatedTarget);
         var callId = button.data('call-id');
-        
-        fetch(`/api/call/${callId}/transcript`)
-            .then(response => response.json())
+        fetch(`/api/call/${callId}/transcript`).then(response => response.json())
             .then(data => {
-                if (data.error) {
-                    rawTranscript = `Error: ${data.error}`;
-                } else {
-                    rawTranscript = data.transcript || 'La transcripción está vacía o no disponible.';
-                }
-                // Renderizar la vista de chat por defecto con los datos cargados
+                if (data.error) { rawTranscript = `{{ _("Error:") }} ${data.error}`; }
+                else { rawTranscript = data.transcript || '{{ _("La transcripción está vacía o no disponible.") }}'; }
                 renderChatView();
-            })
-            .catch(error => {
-                rawTranscript = 'No se pudo cargar la transcripción.';
-                console.error('Error al obtener la transcripción:', error);
-                renderPlainTextView(); // Mostrar error en vista de texto plano
+            }).catch(error => {
+                rawTranscript = '{{ _("No se pudo cargar la transcripción.") }}';
+                console.error('Error fetching transcript:', error);
+                renderPlainTextView();
             });
     });
 });

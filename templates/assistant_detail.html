@@ -1,66 +1,66 @@
 {% extends "layout.html" %}
 
-{% block title %}Detalles del Asistente - {{ assistant.name if assistant else 'N/A' }} - Vapi ChatDash{% endblock %}
+{% block title %}{{ _('Detalles del Asistente -') }} {{ assistant.name if assistant else 'N/A' }} - Vapi ChatDash{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">
-        <i class="fas fa-user-tie"></i> Detalles del Asistente: 
+        <i class="fas fa-user-tie"></i> {{ _('Detalles del Asistente:') }}
         <span class="text-primary">{{ assistant.name if assistant else 'Desconocido' }}</span>
     </h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <a href="{{ url_for('dashboard') }}" class="btn btn-sm btn-outline-secondary">
-            <i class="fas fa-arrow-left"></i> Volver al Dashboard
+            <i class="fas fa-arrow-left"></i> {{ _('Volver al Dashboard') }}
         </a>
     </div>
 </div>
 
 {% if error_message %}
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong><i class="fas fa-exclamation-triangle"></i> Error:</strong> {{ error_message }}
+    <strong><i class="fas fa-exclamation-triangle"></i> {{ _('Error:') }}</strong> {{ error_message }}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 {% elif not assistant %}
 <div class="alert alert-warning" role="alert">
-    <i class="fas fa-info-circle"></i> No se encontraron datos para este asistente.
+    <i class="fas fa-info-circle"></i> {{ _('No se encontraron datos para este asistente.') }}
 </div>
 {% else %}
 <div class="row">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <i class="fas fa-info-circle"></i> Información General
+                <i class="fas fa-info-circle"></i> {{ _('Información General') }}
             </div>
             <div class="card-body">
                 <dl class="row">
-                    <dt class="col-sm-4">ID del Asistente:</dt>
+                    <dt class="col-sm-4">{{ _('ID del Asistente:') }}</dt>
                     <dd class="col-sm-8"><code>{{ assistant.id }}</code></dd>
 
-                    <dt class="col-sm-4">Nombre:</dt>
+                    <dt class="col-sm-4">{{ _('Nombre:') }}</dt>
                     <dd class="col-sm-8">{{ assistant.name }}</dd>
 
-                    <dt class="col-sm-4">Creado en:</dt>
+                    <dt class="col-sm-4">{{ _('Creado en:') }}</dt>
                     <dd class="col-sm-8">{{ assistant.createdAt | replace("T", " ") | replace("Z", "") if assistant.createdAt else 'N/A' }}</dd>
                     
-                    <dt class="col-sm-4">Actualizado en:</dt>
+                    <dt class="col-sm-4">{{ _('Actualizado en:') }}</dt>
                     <dd class="col-sm-8">{{ assistant.updatedAt | replace("T", " ") | replace("Z", "") if assistant.updatedAt else 'N/A' }}</dd>
 
-                    <dt class="col-sm-4">Server Webhook URL:</dt>
+                    <dt class="col-sm-4">{{ _('Server Webhook URL:') }}</dt>
                     <dd class="col-sm-8">
                         {% if assistant.serverUrl %}
                             <a href="{{ assistant.serverUrl }}" target="_blank" rel="noopener noreferrer">{{ assistant.serverUrl }} <i class="fas fa-external-link-alt fa-xs"></i></a>
                         {% else %}
-                            No configurado
+                            {{ _('No configurado') }}
                         {% endif %}
                     </dd>
-                     <dt class="col-sm-4">Server Webhook URL (Backup):</dt>
+                     <dt class="col-sm-4">{{ _('Server Webhook URL (Backup):') }}</dt>
                     <dd class="col-sm-8">
                         {% if assistant.serverUrlBackup %}
                             <a href="{{ assistant.serverUrlBackup }}" target="_blank" rel="noopener noreferrer">{{ assistant.serverUrlBackup }} <i class="fas fa-external-link-alt fa-xs"></i></a>
                         {% else %}
-                            No configurado
+                            {{ _('No configurado') }}
                         {% endif %}
                     </dd>
                 </dl>
@@ -69,24 +69,24 @@
 
         <div class="card mt-4">
             <div class="card-header bg-info text-white">
-                <i class="fas fa-cogs"></i> Configuración del Modelo IA
+                <i class="fas fa-cogs"></i> {{ _('Configuración del Modelo IA') }}
             </div>
             <div class="card-body">
                 {% if assistant.model %}
                 <dl class="row">
-                    <dt class="col-sm-4">Proveedor:</dt>
+                    <dt class="col-sm-4">{{ _('Proveedor:') }}</dt>
                     <dd class="col-sm-8">{{ assistant.model.provider | capitalize if assistant.model.provider else 'N/A' }}</dd>
 
-                    <dt class="col-sm-4">Modelo:</dt>
+                    <dt class="col-sm-4">{{ _('Modelo:') }}</dt>
                     <dd class="col-sm-8">{{ assistant.model.model | default('N/A') }}</dd>
                     
                     {% if assistant.model.messages and assistant.model.messages|length > 0 %}
-                        <dt class="col-sm-4">Mensajes del Sistema/Prompt:</dt>
+                        <dt class="col-sm-4">{{ _('Mensajes del Sistema/Prompt:') }}</dt>
                         <dd class="col-sm-8">
                             <ul class="list-unstyled">
                             {% for message in assistant.model.messages %}
                                 <li>
-                                    <small class="text-muted"><strong>Rol:</strong> {{ message.role | capitalize }}</small>
+                                    <small class="text-muted"><strong>{{ _('Rol:') }}</strong> {{ message.role | capitalize }}</small>
                                     <pre class="bg-light p-2 rounded small"><code>{{ message.content }}</code></pre>
                                 </li>
                             {% endfor %}
@@ -95,16 +95,16 @@
                     {% endif %}
 
                     {% if assistant.model.tools and assistant.model.tools|length > 0 %}
-                        <dt class="col-sm-4">Herramientas (Tools):</dt>
+                        <dt class="col-sm-4">{{ _('Herramientas (Tools):') }}</dt>
                         <dd class="col-sm-8">
                             <ul class="list-group list-group-flush">
                             {% for tool in assistant.model.tools %}
                                 <li class="list-group-item px-0 py-1">
-                                    <strong>Tipo:</strong> {{ tool.type | capitalize }}
-                                    {% if tool.name %}<br><small class="text-muted">Nombre: {{ tool.name }}</small>{% endif %}
-                                    {% if tool.description %}<br><small class="text-muted">Descripción: {{ tool.description }}</small>{% endif %}
+                                    <strong>{{ _('Tipo:') }}</strong> {{ tool.type | capitalize }}
+                                    {% if tool.name %}<br><small class="text-muted">{{ _('Nombre:') }} {{ tool.name }}</small>{% endif %}
+                                    {% if tool.description %}<br><small class="text-muted">{{ _('Descripción:') }} {{ tool.description }}</small>{% endif %}
                                     {% if tool.function and tool.function.parameters %}
-                                        <br><small class="text-muted">Parámetros:</small>
+                                        <br><small class="text-muted">{{ _('Parámetros:') }}</small>
                                         <pre class="bg-light p-1 rounded small"><code>{{ tool.function.parameters | tojson(indent=2) }}</code></pre>
                                     {% endif %}
                                 </li>
@@ -113,7 +113,6 @@
                         </dd>
                     {% endif %}
                     
-                    <!-- Otros parámetros del modelo que Vapi pueda devolver -->
                     {% for key, value in assistant.model.items() %}
                         {% if key not in ['provider', 'model', 'messages', 'tools'] and value is not none %}
                             <dt class="col-sm-4">{{ key | replace("_", " ") | capitalize }}:</dt>
@@ -128,7 +127,7 @@
                     {% endfor %}
                 </dl>
                 {% else %}
-                <p class="text-muted">No hay información de configuración del modelo disponible.</p>
+                <p class="text-muted">{{ _('No hay información de configuración del modelo disponible.') }}</p>
                 {% endif %}
             </div>
         </div>
@@ -137,16 +136,15 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header bg-secondary text-white">
-                <i class="fas fa-microphone-alt"></i> Configuración de Voz (TTS)
+                <i class="fas fa-microphone-alt"></i> {{ _('Configuración de Voz (TTS)') }}
             </div>
             <div class="card-body">
                 {% if assistant.voice %}
                 <dl>
-                    <dt>Proveedor TTS:</dt>
+                    <dt>{{ _('Proveedor TTS:') }}</dt>
                     <dd>{{ assistant.voice.provider | capitalize if assistant.voice.provider else 'N/A' }}</dd>
-                    <dt>ID de Voz:</dt>
+                    <dt>{{ _('ID de Voz:') }}</dt>
                     <dd>{{ assistant.voice.voiceId | default('N/A') }}</dd>
-                     <!-- Otros parámetros de voz que Vapi pueda devolver -->
                     {% for key, value in assistant.voice.items() %}
                         {% if key not in ['provider', 'voiceId'] and value is not none %}
                             <dt>{{ key | replace("_", " ") | capitalize }}:</dt>
@@ -155,27 +153,26 @@
                     {% endfor %}
                 </dl>
                 {% else %}
-                <p class="text-muted">No hay información de configuración de voz disponible.</p>
+                <p class="text-muted">{{ _('No hay información de configuración de voz disponible.') }}</p>
                 {% endif %}
             </div>
         </div>
         
         <div class="card mt-4">
             <div class="card-header bg-warning text-dark">
-                <i class="fas fa-phone-alt"></i> Configuración de Llamada
+                <i class="fas fa-phone-alt"></i> {{ _('Configuración de Llamada') }}
             </div>
             <div class="card-body">
                 <dl>
-                    <dt>Primer Mensaje (First Message):</dt>
-                    <dd>{{ assistant.firstMessage | default('No configurado') }}</dd>
+                    <dt>{{ _('Primer Mensaje (First Message):') }}</dt>
+                    <dd>{{ assistant.firstMessage | default(_('No configurado')) }}</dd>
                     
-                    <dt>Transferencia de Destino (Número):</dt>
-                    <dd>{{ assistant.transferDestinationPhoneNumber | default('No configurado') }}</dd>
+                    <dt>{{ _('Transferencia de Destino (Número):') }}</dt>
+                    <dd>{{ assistant.transferDestinationPhoneNumber | default(_('No configurado')) }}</dd>
 
-                    <dt>Máx. Duración (segundos):</dt>
-                    <dd>{{ assistant.maxDurationSeconds | default('No configurado') }}</dd>
+                    <dt>{{ _('Máx. Duración (segundos):') }}</dt>
+                    <dd>{{ assistant.maxDurationSeconds | default(_('No configurado')) }}</dd>
 
-                    <!-- Otros parámetros de llamada que Vapi pueda devolver -->
                     {% for key, value in assistant.items() %}
                         {% if key not in ['id', 'name', 'createdAt', 'updatedAt', 'serverUrl', 'serverUrlBackup', 'model', 'voice', 'firstMessage', 'transferDestinationPhoneNumber', 'maxDurationSeconds', 'orgId', 'metadata'] and value is not none %}
                              <dt>{{ key | replace("_", " ") | capitalize }}:</dt>
@@ -195,7 +192,7 @@
         {% if assistant.metadata and assistant.metadata|length > 0 %}
         <div class="card mt-4">
             <div class="card-header bg-dark text-white">
-                <i class="fas fa-tags"></i> Metadata
+                <i class="fas fa-tags"></i> {{ _('Metadata') }}
             </div>
             <div class="card-body">
                 <pre class="bg-light p-2 rounded small"><code>{{ assistant.metadata | tojson(indent=2) }}</code></pre>
@@ -207,25 +204,13 @@
 </div>
 
 <div class="mt-4">
-    <h4><i class="fas fa-code"></i> Datos JSON Completos del Asistente</h4>
+    <h4><i class="fas fa-code"></i> {{ _('Datos JSON Completos del Asistente') }}</h4>
     <pre class="bg-light p-3 rounded small" style="max-height: 400px; overflow-y: auto;"><code>{{ assistant | tojson(indent=2) }}</code></pre>
 </div>
 
 {% endif %}
 
 <hr>
-<p class="text-muted text-center"><small>Última actualización de esta página: {{ last_updated.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+<p class="text-muted text-center"><small>{{ _('Última actualización de esta página:') }} {{ last_updated.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
 
 {% endblock %}
-
-{% block scripts %}
-{{ super() }}
-<script>
-    // Puedes añadir JS específico para esta página si es necesario
-</script>
-{% endblock %}  
-{% endblock %} 
-
-{% block styles %}
-{{ super() }} 
- 
